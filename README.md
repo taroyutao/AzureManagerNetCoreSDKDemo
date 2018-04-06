@@ -5,4 +5,4 @@ Azure C# NetCore 管理API
 
 SDK：Microsoft.Azure.Management.Fluent 1.8.0
 
-认账信息获取参考 [AUTH.cs](https://github.com/taroyutao/AzureManagerNetCoreSDKDemo/blob/master/AUTH/AUTH.cs)
+认证信息获取参考 [AUTH/AUTH.cs](https://github.com/taroyutao/AzureManagerNetCoreSDKDemo/blob/master/AUTH/AUTH.cs)
