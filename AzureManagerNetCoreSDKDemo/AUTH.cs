@@ -30,7 +30,7 @@ namespace ResourceManager
             AzureCredentials creds = new AzureCredentialsFactory().FromServicePrincipal(clientId, clientSecret, domain, AzureEnvironment.AzureChinaCloud);
             azureCredentials = creds;
 
-            IAzure Iazure = Microsoft.Azure.Management.Fluent.Azure.Authenticate(azureCredentials).WithSubscription(subscriptionId);
+            IAzure Iazure = Azure.Authenticate(azureCredentials).WithSubscription(subscriptionId);
             azure = Iazure;
         }
     }

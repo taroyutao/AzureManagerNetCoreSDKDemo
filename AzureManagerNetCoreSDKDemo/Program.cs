@@ -6,9 +6,11 @@ using Microsoft.Azure.Management.Compute.Fluent.Models;
 using Microsoft.Azure.Management.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
+using Microsoft.Azure.Management.ResourceManager.Fluent.Models;
 using Microsoft.Azure.Management.ServiceBus.Fluent;
 using Microsoft.Azure.Management.Storage.Fluent;
 using Microsoft.Azure.Management.Storage.Fluent.Models;
+using Microsoft.Rest.Azure;
 using ResourceManager;
 
 namespace AzureManagerNetCoreSDKDemo
@@ -24,9 +26,9 @@ namespace AzureManagerNetCoreSDKDemo
 
         static void Main(string[] args)
         {
-            AUTH authClass = new AUTH();
+            AUTH auth = new AUTH();
 
-            IAzure azure = authClass.azure;
+            IAzure azure = auth.azure;
 
             IEnumerable<IResourceGroup>  resourceLsits = azure.ResourceGroups.List();
 
@@ -45,8 +47,6 @@ namespace AzureManagerNetCoreSDKDemo
             //    .WithTag("key", "value")
             //    .WithSku(StorageAccountSkuType.Standard_LRS)
             //    .Create();
-
-
 
             //创建服务总线命名空间
             //string servicebusNamespace = "yuservicebusnamespace";
@@ -110,11 +110,48 @@ namespace AzureManagerNetCoreSDKDemo
             //Console.WriteLine("Created a Windows VM: " + windowsVM.Id);
 
 
+            //azure resource manager test
+            ResourceManagementClient resourceManagerClient = new ResourceManagementClient(new Uri("https://management.chinacloudapi.cn"), auth.azureCredentials) { SubscriptionId = azure.SubscriptionId};
+            resourceManagerClient.Resources.DeleteByIdAsync("/subscriptions/e0fbea86-6cf2-4b2d-81e2-9c59f4f96bcb/resourceGroups/armtest", "2016-06-01").GetAwaiter();
+
+            //resourceManagerClient.Resources.ListAsync();
+
             Console.WriteLine("Hello World!");
 
             Console.ReadKey(true);
 
         }
-    }
 
+        /// <summary>
+        /// 更具资源类型获取API Version
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="pList"></param>
+        /// <returns></returns>
+        public static string getApiVersion(string type, IPage<ProviderInner> pList)
+        {
+            string apiVersion = null;
+
+            string[] serviceType = type.ToString().Split('/');
+
+            foreach (ProviderInner pi in pList)
+            {
+                if (serviceType[0] == pi.NamespaceProperty)
+                {
+
+                    IList<ProviderResourceType> typeResult = pi.ResourceTypes;
+
+                    foreach (ProviderResourceType pr in typeResult)
+                    {
+                        if (serviceType[1] == pr.ResourceType)
+                        {
+                            IList<string> apiList = pr.ApiVersions;
+                            apiVersion = apiList[0];
+                        }
+                    }
+                }
+            }
+            return apiVersion;
+        }
+    }
 }
