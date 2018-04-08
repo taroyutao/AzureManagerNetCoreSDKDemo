@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using AUTH;
 using Microsoft.Azure.Management.Compute.Fluent;
 using Microsoft.Azure.Management.Compute.Fluent.Models;
 using Microsoft.Azure.Management.Fluent;
@@ -10,6 +9,7 @@ using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
 using Microsoft.Azure.Management.ServiceBus.Fluent;
 using Microsoft.Azure.Management.Storage.Fluent;
 using Microsoft.Azure.Management.Storage.Fluent.Models;
+using ResourceManager;
 
 namespace AzureManagerNetCoreSDKDemo
 {
@@ -24,7 +24,7 @@ namespace AzureManagerNetCoreSDKDemo
 
         static void Main(string[] args)
         {
-            AUTHClass authClass = new AUTHClass();
+            AUTH authClass = new AUTH();
 
             IAzure azure = authClass.azure;
 
@@ -34,6 +34,7 @@ namespace AzureManagerNetCoreSDKDemo
             foreach (IResourceGroup rs in resourceLsits)
             {
                 Console.WriteLine("资源组信息：" + rs.Name);
+
             }
 
             //创建存储账户
@@ -90,7 +91,7 @@ namespace AzureManagerNetCoreSDKDemo
             //    .Create();
 
 
-
+            //创建虚拟机
             //Console.WriteLine("Creating a Windows VM");
 
             //var windowsVM = azure.VirtualMachines.Define("myWindowsVM")
