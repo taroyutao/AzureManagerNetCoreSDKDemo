@@ -91,21 +91,22 @@ namespace AzureManagerNetCoreSDKDemo
 
 
 
-            Console.WriteLine("Creating a Windows VM");
+            //Console.WriteLine("Creating a Windows VM");
 
-            var windowsVM = azure.VirtualMachines.Define("myWindowsVM")
-                .WithRegion(Region.ChinaNorth)
-                .WithNewResourceGroup(resourceGroupName)
-                .WithNewPrimaryNetwork("10.0.0.0/28")
-                .WithPrimaryPrivateIPAddressDynamic()
-                .WithNewPrimaryPublicIPAddress("yutest1")
-                .WithPopularWindowsImage(KnownWindowsVirtualMachineImage.WindowsServer2012R2Datacenter)
-                .WithAdminUsername("tirekicker")
-                .WithAdminPassword(password)
-                .WithSize(VirtualMachineSizeTypes.BasicA0)
-                .Create();
+            //var windowsVM = azure.VirtualMachines.Define("myWindowsVM")
+            //    .WithRegion(Region.ChinaNorth)
+            //    .WithNewResourceGroup(resourceGroupName)
 
-            Console.WriteLine("Created a Windows VM: " + windowsVM.Id);
+            //    .WithNewPrimaryNetwork("10.0.0.0/28")
+            //    .WithPrimaryPrivateIPAddressDynamic()
+            //    .WithNewPrimaryPublicIPAddress("yutest1")
+            //    .WithPopularWindowsImage(KnownWindowsVirtualMachineImage.WindowsServer2012R2Datacenter)
+            //    .WithAdminUsername("tirekicker")
+            //    .WithAdminPassword(password)
+            //    .WithSize(VirtualMachineSizeTypes.BasicA0)
+            //    .Create();
+
+            //Console.WriteLine("Created a Windows VM: " + windowsVM.Id);
 
 
             Console.WriteLine("Hello World!");
